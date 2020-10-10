@@ -108,18 +108,13 @@ INT DEC_2_HEX() {
 	int m;
 	int n;
 	int k = 0;
-	if (dec == NULL) {
-		while (1)
-		{
-			m = dec / 16;
-			n = dec - (m * 16);
-			HEXADECIMAL_STRING[k++] = LIST_HEX[n];
-			if (m <= 0) break;
-			dec = m;
-		}
-	}
-	else {
-		HEXADECIMAL_STRING[0] = NULL;
+	while (1)
+	{
+		m = dec / 16;
+		n = dec - (m * 16);
+		HEXADECIMAL_STRING[k++] = LIST_HEX[n];
+		if (m <= 0) break;
+		dec = m;
 	}
 	return 0;
 }
