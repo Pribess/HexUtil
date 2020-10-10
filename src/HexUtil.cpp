@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <Windows.h>
 #include <stdio.h>
+#include <string.h>
 #include "Def_List.h"
 
 HINSTANCE hinst;
@@ -17,8 +18,6 @@ char HEXADECIMAL_STRING[128];
 bool CHECK = 0;
 
 INT DEC_2_HEX();
-
-INT STR_2_INT();
 
 
 LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
@@ -102,7 +101,7 @@ INT WINAPI WinMain(HINSTANCE hinstance, HINSTANCE HinstPrev, PSTR szCmdLine, int
 		DispatchMessage(&msg);
 	}
 }
-INT DEC_2_HEX() {
+int DEC_2_HEX() {
 	char LIST_HEX[] = "0123456789ABCDEF";
 	int dec = atoi(DECIMAL_STRING);
 	int m;
@@ -116,5 +115,6 @@ INT DEC_2_HEX() {
 		if (m <= 0) break;
 		dec = m;
 	}
+	_strrev(HEXADECIMAL_STRING);
 	return 0;
 }
