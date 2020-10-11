@@ -135,8 +135,8 @@ INT HEX_2_DEC() {
 	int dec = strtol(HEXADECIMAL_STRING, NULL, 16);
 	sprintf(DECIMAL_STRING, "%d", dec);
 	
-	if (HEXADECIMAL_STRING[0] == 48) {
-		HEXADECIMAL_STRING[0] = '\0';
+	if (DECIMAL_STRING[0] == 48) {
+		DECIMAL_STRING[0] = '\0';
 	}
 
 	return 0;
