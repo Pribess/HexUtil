@@ -18,6 +18,7 @@ char HEXADECIMAL_STRING[128];
 bool CHECK = 0;
 
 INT DEC_2_HEX();
+INT HEX_2_DEC();
 
 
 LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
@@ -46,11 +47,11 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 				if (CHECK == 0) {
 					GetWindowText(DECIMAL_EDIT, DECIMAL_STRING, 128);
 					DEC_2_HEX();
-					printf("D : %s\n", DECIMAL_STRING);
+					//printf("D : %s\n", DECIMAL_STRING);
 					CHECK = 1;
 					SetWindowText(HEXADECIMAL_EDIT, HEXADECIMAL_STRING);
 
-					printf("H : %s\n", HEXADECIMAL_STRING);
+					//printf("H : %s\n", HEXADECIMAL_STRING);
 				}
 				else {
 					CHECK = 0;
@@ -63,6 +64,7 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 			case EN_CHANGE:
 				if (CHECK == 0) {
 					GetWindowText(HEXADECIMAL_EDIT, HEXADECIMAL_STRING, 128);
+					HEX_2_DEC();
 					CHECK = 1;
 					SetWindowText(DECIMAL_EDIT, DECIMAL_STRING);
 				}
@@ -108,7 +110,7 @@ INT WINAPI WinMain(HINSTANCE hinstance, HINSTANCE HinstPrev, PSTR szCmdLine, int
 		DispatchMessage(&msg);
 	}
 }
-int DEC_2_HEX() {
+INT DEC_2_HEX() {
 	char LIST_HEX[] = "0123456789ABCDEF";
 	int dec = atoi(DECIMAL_STRING);
 	int m;
@@ -127,5 +129,15 @@ int DEC_2_HEX() {
 	if (HEXADECIMAL_STRING[0] == 48) {
 		HEXADECIMAL_STRING[0] = '\0';
 	}
+	return 0;
+}
+INT HEX_2_DEC() {
+	int dec = strtol(HEXADECIMAL_STRING, NULL, 16);
+	sprintf(DECIMAL_STRING, "%d", dec);
+	
+	if (HEXADECIMAL_STRING[0] == 48) {
+		HEXADECIMAL_STRING[0] = '\0';
+	}
+
 	return 0;
 }
