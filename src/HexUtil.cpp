@@ -27,6 +27,9 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 
 	switch (iMsg) {
 	case WM_CREATE:
+		AllocConsole();
+		freopen("CON", "w", stdout);
+
 		DECIMAL_STATIC = CreateWindow("static", "DECIMAL", WS_CHILD | WS_VISIBLE | SS_LEFT | SS_SIMPLE, 7, 13, 60, 25, hWnd, NULL, hinst, NULL);
 		SendMessage(DECIMAL_STATIC, WM_SETFONT, (WPARAM)hFont, (LPARAM)MAKELONG(TRUE, 0));
 		DECIMAL_EDIT = CreateWindowEx(WS_EX_CLIENTEDGE, "EDIT", NULL, WS_CHILD | ES_LEFT | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL, 90, 10, 335, 25, hWnd, (HMENU)DECIMAL_MENU, hinst, NULL);
@@ -43,8 +46,11 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 				if (CHECK == 0) {
 					GetWindowText(DECIMAL_EDIT, DECIMAL_STRING, 128);
 					DEC_2_HEX();
+					printf("D : %s\n", DECIMAL_STRING);
 					CHECK = 1;
 					SetWindowText(HEXADECIMAL_EDIT, HEXADECIMAL_STRING);
+
+					printf("H : %s\n", HEXADECIMAL_STRING);
 				}
 				else {
 					CHECK = 0;
@@ -69,6 +75,7 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 		}
 		return 0;
 	case WM_DESTROY:
+		FreeConsole();
 		PostQuitMessage(0);
 		break;
 	}
@@ -107,6 +114,7 @@ int DEC_2_HEX() {
 	int m;
 	int n;
 	int k = 0;
+	memset(HEXADECIMAL_STRING, 0, sizeof(HEXADECIMAL_STRING));
 	while (1)
 	{
 		m = dec / 16;
@@ -116,5 +124,8 @@ int DEC_2_HEX() {
 		dec = m;
 	}
 	_strrev(HEXADECIMAL_STRING);
+	if (HEXADECIMAL_STRING[0] == 48) {
+		HEXADECIMAL_STRING[0] = '\0';
+	}
 	return 0;
 }
