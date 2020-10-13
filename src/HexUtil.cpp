@@ -28,16 +28,17 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 
 	switch (iMsg) {
 	case WM_CREATE:
-		AllocConsole();
-		freopen("CON", "w", stdout);
+		//AllocConsole();
+		//freopen("CON", "w", stdout);
 
 		DECIMAL_STATIC = CreateWindow("static", "DECIMAL", WS_CHILD | WS_VISIBLE | SS_LEFT | SS_SIMPLE, 7, 13, 60, 25, hWnd, NULL, hinst, NULL);
 		SendMessage(DECIMAL_STATIC, WM_SETFONT, (WPARAM)hFont, (LPARAM)MAKELONG(TRUE, 0));
 		DECIMAL_EDIT = CreateWindowEx(WS_EX_CLIENTEDGE, "EDIT", NULL, WS_CHILD | ES_LEFT | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL, 90, 10, 335, 25, hWnd, (HMENU)DECIMAL_MENU, hinst, NULL);
 
-		HEXADECIMAL_STATIC = CreateWindow("static", "HEX + 00", WS_CHILD | WS_VISIBLE | SS_LEFT | SS_SIMPLE, 7, 41, 60, 25, hWnd, NULL, hinst, NULL);
+		HEXADECIMAL_STATIC = CreateWindow("static", "HEX + 00", WS_CHILD | WS_VISIBLE | SS_LEFT | SS_SIMPLE , 7, 41, 60, 25, hWnd, NULL, hinst, NULL);
 		SendMessage(HEXADECIMAL_STATIC, WM_SETFONT, (WPARAM)hFont, (LPARAM)MAKELONG(TRUE, 0));
 		HEXADECIMAL_EDIT = CreateWindowEx(WS_EX_CLIENTEDGE, "EDIT", NULL, WS_CHILD | ES_LEFT | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL, 90, 35, 335, 25, hWnd, (HMENU)HEXADECIMAL_MENU, hinst, NULL);
+		SetWindowLong(HEXADECIMAL_EDIT, GWL_STYLE, ES_UPPERCASE | WS_CHILD | ES_LEFT | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL);
 		break;
 	case WM_COMMAND:
 		switch (LOWORD(wParam)) {
@@ -64,6 +65,7 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 			case EN_CHANGE:
 				if (CHECK == 0) {
 					GetWindowText(HEXADECIMAL_EDIT, HEXADECIMAL_STRING, 128);
+					_strupr(HEXADECIMAL_STRING);
 					HEX_2_DEC();
 					CHECK = 1;
 					SetWindowText(DECIMAL_EDIT, DECIMAL_STRING);
@@ -77,7 +79,7 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 		}
 		return 0;
 	case WM_DESTROY:
-		FreeConsole();
+		//FreeConsole();
 		PostQuitMessage(0);
 		break;
 	}
