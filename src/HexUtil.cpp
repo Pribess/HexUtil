@@ -28,8 +28,7 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 
 	switch (iMsg) {
 	case WM_CREATE:
-		//AllocConsole();
-		//freopen("CON", "w", stdout);
+
 
 		DECIMAL_STATIC = CreateWindow("static", "DECIMAL", WS_CHILD | WS_VISIBLE | SS_LEFT | SS_SIMPLE, 7, 13, 60, 25, hWnd, NULL, hinst, NULL);
 		SendMessage(DECIMAL_STATIC, WM_SETFONT, (WPARAM)hFont, (LPARAM)MAKELONG(TRUE, 0));
@@ -48,11 +47,8 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 				if (CHECK == 0) {
 					GetWindowText(DECIMAL_EDIT, DECIMAL_STRING, 128);
 					DEC_2_HEX();
-					//printf("D : %s\n", DECIMAL_STRING);
 					CHECK = 1;
 					SetWindowText(HEXADECIMAL_EDIT, HEXADECIMAL_STRING);
-
-					//printf("H : %s\n", HEXADECIMAL_STRING);
 				}
 				else {
 					CHECK = 0;
@@ -79,7 +75,6 @@ LRESULT WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 		}
 		return 0;
 	case WM_DESTROY:
-		//FreeConsole();
 		PostQuitMessage(0);
 		break;
 	}
