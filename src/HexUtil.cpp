@@ -93,6 +93,7 @@ INT WINAPI WinMain(HINSTANCE hinstance, HINSTANCE HinstPrev, PSTR szCmdLine, int
 	WC.hCursor = LoadCursor(hinst, IDC_ARROW);
 	WC.hbrBackground = (HBRUSH)CreateSolidBrush(RGB(240, 240, 240));
 	WC.lpszClassName = "MAIN";
+	WC.lpszMenuName = MAKEINTRESOURCE(IDR_MENU1);
 
 	RegisterClass(&WC);
 
