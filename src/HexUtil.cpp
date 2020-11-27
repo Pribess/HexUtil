@@ -4,6 +4,7 @@
 #include <string.h>
 #include "Def_List.h"
 
+
 HINSTANCE hinst;
 
 HWND DECIMAL_STATIC;
